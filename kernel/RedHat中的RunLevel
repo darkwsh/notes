@@ -1,0 +1,20 @@
+Red Hat Enterprise Linux 系统中提供了3中专门修复系统的Runlevel。
+1、Runlevel 1
+2、Runlevel S
+3、Runlevel emergency
+（一）、当开机进入Runlevel 1级别时,Red Hat Enterprise Linux的开机启动顺序为：
+BIOS——— 启动加载器——— 内核———init——— rc.syinit——— rc1.d
+由于Runlevel 1仅执行到rc1.d/便结束了。因此可以使用Runlevel 1解决的问题有：
+1、进入Runlevel 2、Runlevel 3、Runlevel 4和Runlevel 5时所发生的错误。
+2、由于开机至rc1.d/的过程中不会执行任何PAM的客户端，因此，可以利用Runlevel 1来解决PAM子系统造成的错误。
+（二）、Runlevel S又名Runlevel s或Runlevel single。当开机时选择进入Runlevel S时，Red Hat Enterprise Linux的开机启动顺序为：
+BIOS——— 启动加载器——— 内核———init——— rc.syinit
+利用Runlevel S可以解决的问题有：
+1、Runlevel 1可以解决的问题。
+2、由于Runlevel S仅执行到rc.syinit就结束，不会执行在Runlevel 1启动的服务，因此你可以通过Runlevel S来解决因Runlevel 1发生的错误。
+（三）、最后一个用来修复系统的Runlevel为Runlevel emergency。当开机进入Runlevel emergency时，Red Hat Enterprise Linux的开机启动顺序为：
+BIOS——— 启动加载器——— 内核———init
+由于Runlevel emergency仅执行到init就结束，因此通过Runlevel emergency可以解决的问题有：
+1、Runlevel S可以解决的问题。
+2、rc.sysinit发生的错误。例如Software RAID故障，或者是/etc/fstab的错误导致无法正确挂载文件系统。
+由于进入进入Runlevel emergency事根文件系统仍然为只读状态，所以无法直接修改Red Hat Enterprise Linux中的文件。如果要修改/etc/中的文件，则必须手动地将根文件系统修改为可读课写状态。
